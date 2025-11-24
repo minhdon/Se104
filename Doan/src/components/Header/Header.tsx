@@ -3,7 +3,7 @@ import styles from "./Header.module.css";
 export const Header = () => {
   return (
     <>
-      <header className={styles["site-header"]}>
+      <header className={styles["site-header"]} id="header">
         <div className={styles.container}>
           <div className={styles["top-bar"]}>
             <a

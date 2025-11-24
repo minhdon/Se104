@@ -9,6 +9,7 @@ export const Assitance = () => {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: false, amount: 0.005 }}
         transition={{ delay: 0.3, duration: 1 }}
+        id="safety"
       >
         <div className={styles.imageZone}>
           <img src="/images/plane2.png" alt="" className={styles.image} />

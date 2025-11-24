@@ -37,6 +37,7 @@
   color: #0284c7;
   text-transform: uppercase;
   letter-spacing: 1px;
+  cursor: pointer;
 }
 
 .app-subtitle {

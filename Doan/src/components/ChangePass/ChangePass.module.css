@@ -36,7 +36,8 @@
   font-size: 24px;
   font-weight: 700;
   margin: 0 0 8px;
-  color: #1a202c;
+  color: #0284c7;
+  cursor: pointer;
 }
 
 .app-subtitle {

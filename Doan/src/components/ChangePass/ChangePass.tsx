@@ -4,19 +4,23 @@ export const ChangePassword = () => {
   const toLogin = () => {
     window.location.href = "/login";
   };
+  const toHome = () => {
+    window.location.href = "/";
+  };
   return (
     <>
       <section className={styles.changeZone}>
         <div className={styles["login-container"]}>
           <div className={styles["logo-area"]}>
-            <svg
+            <img
+              src="/images/airlinelogo.jpg"
+              alt=""
               className={styles["logo-icon"]}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <path d="M21,16V14L13,9V3.5A1.5,1.5 0 0,0 11.5,2A1.5,1.5 0 0,0 10,3.5V9L2,14V16L10,13.5V19L8,20.5V22L11.5,21L15,22V20.5L13,19V13.5L21,16Z" />
-            </svg>
-            <h1 className={styles["app-title"]}>Cloud Airline</h1>
+            />
+
+            <h1 className={styles["app-title"]} onClick={toHome}>
+              Cloud Airline
+            </h1>
             <p className={styles["app-subtitle"]}>
               Cập nhật mật khẩu để bảo vệ tài khoản.
             </p>

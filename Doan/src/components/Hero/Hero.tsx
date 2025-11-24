@@ -2,6 +2,9 @@ import styles from "./Hero.module.css";
 import { motion } from "framer-motion";
 
 export const Hero = () => {
+  const toFind = () => {
+    window.location.href = "#safety";
+  };
   return (
     <>
       <section className={styles.hero}>
@@ -18,7 +21,9 @@ export const Hero = () => {
             <button style={{ color: "#fff", background: "#5696b8" }}>
               Bắt đầu
             </button>
-            <button style={{ background: "#ccc" }}>Tìm hiểu thêm</button>
+            <button style={{ background: "#ccc" }} onClick={toFind}>
+              Tìm hiểu thêm
+            </button>
           </div>
         </div>
         <motion.img

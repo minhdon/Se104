@@ -6,12 +6,6 @@ export const Header = () => {
       <header className={styles["site-header"]} id="header">
         <div className={styles.container}>
           <div className={styles["top-bar"]}>
-            <a
-              href="#"
-              className={`${styles["top-link"]} ${styles["gold-text"]}`}
-            >
-              TRỢ GIÚP
-            </a>
             <span className={styles.divider}>|</span>
             <a href="/login" className={styles["top-link"]}>
               ĐĂNG NHẬP

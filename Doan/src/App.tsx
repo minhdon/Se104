@@ -1,17 +1,21 @@
-import { Assitance } from "./components/Assistance/Assistance";
-import { Connect } from "./components/Connect/Connect";
-import { Experience } from "./components/Experience/Experience";
-import { Header } from "./components/Header/Header";
-import { Hero } from "./components/Hero/Hero";
+import LandingPage from "./pages/LandingPage";
+import { Route, Routes, useLocation } from "react-router";
+import LoginPage from "./pages/LoginPage";
+import Register from "./pages/RegisterPage";
+import ChangePass from "./pages/ChangePassPage";
+import ForgotPass from "./pages/ForgotPassPage";
 
 function App() {
+  const location = useLocation();
   return (
     <>
-      <Header />
-      <Hero />
-      <Assitance />
-      <Experience />
-      <Connect />
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<Register />} />
+        <Route path="change" element={<ChangePass />} />
+        <Route path="forgot" element={<ForgotPass />} />
+      </Routes>
     </>
   );
 }

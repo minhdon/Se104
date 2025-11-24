@@ -13,11 +13,11 @@ export const Header = () => {
               TRỢ GIÚP
             </a>
             <span className={styles.divider}>|</span>
-            <a href="#" className={styles["top-link"]}>
+            <a href="/login" className={styles["top-link"]}>
               ĐĂNG NHẬP
             </a>
             <span className={styles.divider}>|</span>
-            <a href="#" className={styles["top-link"]}>
+            <a href="/register" className={styles["top-link"]}>
               ĐĂNG KÝ
             </a>
 

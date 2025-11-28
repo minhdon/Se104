@@ -1,5 +1,7 @@
+import Navigation from "../FindFlight/Navigation";
+import { Title } from "../FindFlight/Title";
 import styles from "./FlightList.module.css";
-import { useSearchParams } from "react-router";
+import { useSearchParams, useNavigate, createSearchParams } from "react-router";
 
 export const FlightList = () => {
   interface FlightDetail {
@@ -355,159 +357,193 @@ export const FlightList = () => {
   const fromCode = searchParams.get("from");
   const toCode = searchParams.get("to");
   const date = searchParams.get("date");
+  const navigate = useNavigate();
+  const handleToFindFlight = (flightID: number, ticketType: string) => {
+    const currentFrom = fromCode || "";
+    const currentTo = toCode || "";
+    const currentDate = date || "";
+    navigate({
+      pathname: "/passengerForm",
+      search: createSearchParams({
+        from: currentFrom,
+        to: currentTo,
+        date: currentDate,
+        id: flightID.toString(),
+        type: ticketType,
+      }).toString(),
+    });
+  };
 
   const check: boolean = fromCode != null || toCode != null || date != null;
   function formatVNDCustom(amount: number): string {
     return amount.toLocaleString("vi-VN");
   }
   if (check) {
-    return flights
-      .filter(
-        (flight) =>
-          flight.fromCode == fromCode &&
-          flight.toCode == toCode &&
-          flight.date == date
-      )
-      .map((flight) => (
-        <div className={styles.flightCard}>
-          <div className={styles.flightInfo}>
-            <div className={styles.routeInfo}>
-              <div className={styles.point}>
-                <span className={styles.time}>{flight.timeFrom}</span>
-                <span className={styles.city}>{flight.locationFrom}</span>
-                <div className={styles.terminal}>Nhà ga 3</div>
+    return (
+      <>
+        <Title />
+        <Navigation />
+        {flights
+          .filter(
+            (flight) =>
+              flight.fromCode == fromCode &&
+              flight.toCode == toCode &&
+              flight.date == date
+          )
+          .map((flight) => (
+            <div className={styles.flightCard}>
+              <div className={styles.flightInfo}>
+                <div className={styles.routeInfo}>
+                  <div className={styles.point}>
+                    <span className={styles.time}>{flight.timeFrom}</span>
+                    <span className={styles.city}>{flight.locationFrom}</span>
+                    <div className={styles.terminal}>Nhà ga 3</div>
+                  </div>
+
+                  <div className={styles.connector}>
+                    <span>{flight.typeOfFlight}</span>
+                    <div className={styles.dottedLine}></div>
+                  </div>
+
+                  <div className={styles.point}>
+                    <span className={styles.time}>{flight.timeArrive}</span>
+                    <span className={styles.city}>{flight.locationArrive}</span>
+                    <div className={styles.terminal}>Nhà ga 1</div>
+                  </div>
+                </div>
+
+                <div className={styles.metaInfo}>
+                  <div className={styles.metaItem}>
+                    <span className={styles.icon}>⏱</span>
+                    Thời gian bay : {flight.flightTime}
+                  </div>
+                  <div className={styles.metaItem}>
+                    <span className={styles.airlineLogo}>🏵</span>
+                    <span>{flight.desc}</span>
+                  </div>
+                  <a href="#" className={styles.detailLink}>
+                    Chi tiết hành trình ↗
+                  </a>
+                </div>
               </div>
 
-              <div className={styles.connector}>
-                <span>{flight.typeOfFlight}</span>
-                <div className={styles.dottedLine}></div>
-              </div>
+              <div
+                className={styles.priceSection}
+                onClick={() => handleToFindFlight(flight.id, "1")}
+              >
+                <div className={`${styles.priceColumn} ${styles.colEconomy}`}>
+                  <div className={styles.seatsBadge}>
+                    {" "}
+                    {flight.numberOfFirstClass} ghế còn lại
+                  </div>
+                  <span className={styles.priceTagIcon}>🏷</span>
+                  <div className={styles.className}>Ghế hạng 1</div>
+                  <div className={styles.priceLabel}>từ</div>
+                  <div className={styles.priceAmount}>
+                    {formatVNDCustom(flight.cost)}
+                  </div>
+                  <div className={styles.currency}>VND</div>
+                  <div className={styles.arrowIcon}>﹀</div>
+                </div>
 
-              <div className={styles.point}>
-                <span className={styles.time}>{flight.timeArrive}</span>
-                <span className={styles.city}>{flight.locationArrive}</span>
-                <div className={styles.terminal}>Nhà ga 1</div>
+                <div
+                  className={`${styles.priceColumn} ${styles.colBusiness}`}
+                  onClick={() => handleToFindFlight(flight.id, "2")}
+                >
+                  <div className={styles.seatsBadge}>
+                    {flight.numberOfSecondClass} ghế còn lại
+                  </div>
+
+                  <span className={styles.priceTagIcon}>🏷</span>
+                  <div className={styles.className}>Ghế hạng 2</div>
+                  <div className={styles.priceLabel}>từ</div>
+                  <div className={styles.priceAmount}>
+                    {formatVNDCustom(flight.cost * 1.5)}
+                  </div>
+                  <div className={styles.currency}>VND</div>
+                  <div className={styles.arrowIcon}>﹀</div>
+                </div>
               </div>
             </div>
-
-            <div className={styles.metaInfo}>
-              <div className={styles.metaItem}>
-                <span className={styles.icon}>⏱</span>
-                Thời gian bay : {flight.flightTime}
-              </div>
-              <div className={styles.metaItem}>
-                <span className={styles.airlineLogo}>🏵</span>
-                <span>{flight.desc}</span>
-              </div>
-              <a href="#" className={styles.detailLink}>
-                Chi tiết hành trình ↗
-              </a>
-            </div>
-          </div>
-
-          <div className={styles.priceSection}>
-            <div className={`${styles.priceColumn} ${styles.colEconomy}`}>
-              <div className={styles.seatsBadge}>
-                {" "}
-                {flight.numberOfFirstClass} ghế còn lại
-              </div>
-              <span className={styles.priceTagIcon}>🏷</span>
-              <div className={styles.className}>Ghế hạng 1</div>
-              <div className={styles.priceLabel}>từ</div>
-              <div className={styles.priceAmount}>
-                {formatVNDCustom(flight.cost)}
-              </div>
-              <div className={styles.currency}>VND</div>
-              <div className={styles.arrowIcon}>﹀</div>
-            </div>
-
-            <div className={`${styles.priceColumn} ${styles.colBusiness}`}>
-              <div className={styles.seatsBadge}>
-                {flight.numberOfSecondClass} ghế còn lại
-              </div>
-
-              <span className={styles.priceTagIcon}>🏷</span>
-              <div className={styles.className}>Ghế hạng 2</div>
-              <div className={styles.priceLabel}>từ</div>
-              <div className={styles.priceAmount}>
-                {formatVNDCustom(flight.cost * 1.5)}
-              </div>
-              <div className={styles.currency}>VND</div>
-              <div className={styles.arrowIcon}>﹀</div>
-            </div>
-          </div>
-        </div>
-      ));
+          ))}
+      </>
+    );
   } else {
-    return flights.map((flight) => (
-      <div className={styles.flightCard}>
-        <div className={styles.flightInfo}>
-          <div className={styles.routeInfo}>
-            <div className={styles.point}>
-              <span className={styles.time}>{flight.timeFrom}</span>
-              <span className={styles.city}>{flight.locationFrom}</span>
-              <div className={styles.terminal}>Nhà ga 3</div>
+    return (
+      <>
+        {" "}
+        <Title />{" "}
+        {flights.map((flight) => (
+          <div className={styles.flightCard}>
+            <div className={styles.flightInfo}>
+              <div className={styles.routeInfo}>
+                <div className={styles.point}>
+                  <span className={styles.time}>{flight.timeFrom}</span>
+                  <span className={styles.city}>{flight.locationFrom}</span>
+                  <div className={styles.terminal}>Nhà ga 3</div>
+                </div>
+
+                <div className={styles.connector}>
+                  <span>{flight.typeOfFlight}</span>
+                  <div className={styles.dottedLine}></div>
+                </div>
+
+                <div className={styles.point}>
+                  <span className={styles.time}>{flight.timeArrive}</span>
+                  <span className={styles.city}>{flight.locationArrive}</span>
+                  <div className={styles.terminal}>Nhà ga 1</div>
+                </div>
+              </div>
+
+              <div className={styles.metaInfo}>
+                <div className={styles.metaItem}>
+                  <span className={styles.icon}>⏱</span>
+                  Thời gian bay : {flight.flightTime}
+                </div>
+                <div className={styles.metaItem}>
+                  <span className={styles.airlineLogo}>🏵</span>
+                  <span>{flight.desc}</span>
+                </div>
+                <a href="#" className={styles.detailLink}>
+                  Chi tiết hành trình ↗
+                </a>
+              </div>
             </div>
 
-            <div className={styles.connector}>
-              <span>{flight.typeOfFlight}</span>
-              <div className={styles.dottedLine}></div>
-            </div>
+            <div className={styles.priceSection}>
+              <div className={`${styles.priceColumn} ${styles.colEconomy}`}>
+                <div className={styles.seatsBadge}>
+                  {" "}
+                  {flight.numberOfFirstClass} ghế còn lại
+                </div>
+                <span className={styles.priceTagIcon}>🏷</span>
+                <div className={styles.className}>Ghế hạng 1</div>
+                <div className={styles.priceLabel}>từ</div>
+                <div className={styles.priceAmount}>
+                  {formatVNDCustom(flight.cost)}
+                </div>
+                <div className={styles.currency}>VND</div>
+                <div className={styles.arrowIcon}>﹀</div>
+              </div>
 
-            <div className={styles.point}>
-              <span className={styles.time}>{flight.timeArrive}</span>
-              <span className={styles.city}>{flight.locationArrive}</span>
-              <div className={styles.terminal}>Nhà ga 1</div>
+              <div className={`${styles.priceColumn} ${styles.colBusiness}`}>
+                <div className={styles.seatsBadge}>
+                  {flight.numberOfSecondClass} ghế còn lại
+                </div>
+
+                <span className={styles.priceTagIcon}>🏷</span>
+                <div className={styles.className}>Ghế hạng 2</div>
+                <div className={styles.priceLabel}>từ</div>
+                <div className={styles.priceAmount}>
+                  {formatVNDCustom(flight.cost * 1.5)}
+                </div>
+                <div className={styles.currency}>VND</div>
+                <div className={styles.arrowIcon}>﹀</div>
+              </div>
             </div>
           </div>
-
-          <div className={styles.metaInfo}>
-            <div className={styles.metaItem}>
-              <span className={styles.icon}>⏱</span>
-              Thời gian bay : {flight.flightTime}
-            </div>
-            <div className={styles.metaItem}>
-              <span className={styles.airlineLogo}>🏵</span>
-              <span>{flight.desc}</span>
-            </div>
-            <a href="#" className={styles.detailLink}>
-              Chi tiết hành trình ↗
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.priceSection}>
-          <div className={`${styles.priceColumn} ${styles.colEconomy}`}>
-            <div className={styles.seatsBadge}>
-              {" "}
-              {flight.numberOfFirstClass} ghế còn lại
-            </div>
-            <span className={styles.priceTagIcon}>🏷</span>
-            <div className={styles.className}>Ghế hạng 1</div>
-            <div className={styles.priceLabel}>từ</div>
-            <div className={styles.priceAmount}>
-              {formatVNDCustom(flight.cost)}
-            </div>
-            <div className={styles.currency}>VND</div>
-            <div className={styles.arrowIcon}>﹀</div>
-          </div>
-
-          <div className={`${styles.priceColumn} ${styles.colBusiness}`}>
-            <div className={styles.seatsBadge}>
-              {flight.numberOfSecondClass} ghế còn lại
-            </div>
-
-            <span className={styles.priceTagIcon}>🏷</span>
-            <div className={styles.className}>Ghế hạng 2</div>
-            <div className={styles.priceLabel}>từ</div>
-            <div className={styles.priceAmount}>
-              {formatVNDCustom(flight.cost * 1.5)}
-            </div>
-            <div className={styles.currency}>VND</div>
-            <div className={styles.arrowIcon}>﹀</div>
-          </div>
-        </div>
-      </div>
-    ));
+        ))}
+      </>
+    );
   }
 };

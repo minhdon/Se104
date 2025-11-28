@@ -6,6 +6,7 @@ import ChangePass from "./pages/ChangePassPage";
 import ForgotPass from "./pages/ForgotPassPage";
 import FindFlightPage from "./pages/FindFlightPage";
 import FlightListPage from "./pages/FlightListPage";
+import PassengerFormPage from "./pages/PassengerForm";
 
 function App() {
   const location = useLocation();
@@ -19,6 +20,7 @@ function App() {
         <Route path="forgot" element={<ForgotPass />} />
         <Route path="find" element={<FindFlightPage />} />
         <Route path="flightList" element={<FlightListPage />} />
+        <Route path="passengerForm" element={<PassengerFormPage />} />
       </Routes>
     </>
   );

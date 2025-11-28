@@ -100,7 +100,6 @@ const FlightSearch: React.FC = () => {
   };
 
   const handleSearch = () => {
-    // 1. Validate dữ liệu
     if (!fromValue || !toValue) {
       alert("Vui lòng chọn đầy đủ điểm đi và điểm đến!");
       return;

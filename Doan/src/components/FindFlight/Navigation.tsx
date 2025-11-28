@@ -19,8 +19,8 @@ const Navigation = () => {
             <span className={styles.code}>{toCode}</span>
           </div>
           <div className={styles.routeCities}>
-            <span>TP. Hồ Chí Minh</span>
-            <span>Đà Nẵng</span>
+            {/* <span>TP. Hồ Chí Minh</span>
+            <span>Đà Nẵng</span> */}
           </div>
         </div>
 

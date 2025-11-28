@@ -1,0 +1,45 @@
+.box {
+  margin: 50px auto;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 5px #005f6e, 2px 2px 5px #eebc40;
+  height: 50px;
+  border-radius: 20px;
+}
+.box h1 {
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #005f6e;
+  position: relative;
+  left: 40px;
+}
+.find h2 {
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #005f6e;
+}
+.find {
+  display: flex;
+  margin-right: 20px;
+  cursor: pointer;
+  align-items: center;
+}
+.find:hover h2,
+.find:hover i {
+  color: #eebc40;
+  margin-bottom: 10px;
+  transition: 0.2s;
+}
+.box i {
+  font-size: 3rem;
+  color: #005f6e;
+  margin-left: 20px;
+}
+.find i {
+  font-size: 1.5rem;
+  margin-left: 0;
+  margin-top: 4px;
+  padding-left: 10px;
+}

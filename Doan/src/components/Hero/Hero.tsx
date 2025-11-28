@@ -5,6 +5,9 @@ export const Hero = () => {
   const toFind = () => {
     window.location.href = "#safety";
   };
+  const getStarted = () => {
+    window.location.href = "/find";
+  };
   return (
     <>
       <section className={styles.hero}>
@@ -18,7 +21,10 @@ export const Hero = () => {
             trải nghiệm thư thái, đẳng cấp với tiêu chuẩn phục vụ hàng đầu.
           </p>
           <div className={styles.button}>
-            <button style={{ color: "#fff", background: "#5696b8" }}>
+            <button
+              style={{ color: "#fff", background: "#5696b8" }}
+              onClick={getStarted}
+            >
               Bắt đầu
             </button>
             <button style={{ background: "#ccc" }} onClick={toFind}>

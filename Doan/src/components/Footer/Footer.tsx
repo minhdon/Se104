@@ -12,12 +12,12 @@ export const Footer = () => {
 
           <h3 className={styles.footerHeading}>LIÊN HỆ</h3>
           <p className={styles.footerText}>
-            Địa chỉ: 1 Huyện Tập Bằng 174, VietNam, Tito 10024
+            Địa chỉ:Đường số 7, Linh Xuân, Thủ Đức, Hồ Chí Minh
           </p>
           <p className={styles.footerText}>
             <i className="fa-solid fa-envelope"></i>{" "}
             <a href="mailto:cloudss@gmail.com" className={styles.email}>
-              cloudss@gmail.com
+              clouds@gmail.com
             </a>
           </p>
           <p className={styles.phoneContact}>

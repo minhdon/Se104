@@ -1,6 +1,9 @@
 import styles from "./Header.module.css";
 
 export const Header = () => {
+  const backToHome = () => {
+    window.location.href = "/";
+  };
   return (
     <>
       <header className={styles["site-header"]} id="header">
@@ -29,22 +32,23 @@ export const Header = () => {
               <img
                 src="/images/airlinelogo.jpg"
                 className={styles["logo-img"]}
+                onClick={backToHome}
               />
             </div>
 
             <nav className={styles["nav-menu"]}>
               <ul>
                 <li>
-                  <a href="#">Lên kế hoạch</a>
+                  <a href="/">Trang chủ</a>
+                </li>
+                <li>
+                  <a href="/flightList">Danh sách chuyến bay</a>
                 </li>
                 <li>
                   <a href="#">Thông tin hành trình</a>
                 </li>
                 <li>
-                  <a href="#">Mua vé & Sản phẩm khác</a>
-                </li>
-                <li className={styles["lotusmiles-btn"]}>
-                  <a href="#">Lotusmiles</a>
+                  <a href="/find">Mua vé </a>
                 </li>
               </ul>
             </nav>

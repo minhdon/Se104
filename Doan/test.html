@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vé máy bay UI</title>
+    <style>
+      /* Reset cơ bản */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      /* Container chính của thẻ vé */
+      .flight-card {
+        background: white;
+        display: flex;
+        width: 1000px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        overflow: visible; /* Để hiển thị tag '8 ghế còn lại' trồi lên trên */
+        position: relative;
+      }
+
+      /* --- CỘT TRÁI: THÔNG TIN CHUYẾN BAY --- */
+      .flight-info {
+        flex: 1; /* Chiếm phần không gian còn lại */
+        padding: 20px 25px;
+        display: flex;
+        flex-direction: row;
+        border-right: 1px solid #eee;
+        align-items: center;
+      }
+
+      .route-info {
+        display: flex;
+        align-items: center;
+        width: 60%;
+      }
+
+      .point {
+        text-align: center;
+      }
+
+      .time {
+        font-size: 24px;
+        font-weight: 500;
+        color: #006070;
+        display: block;
+      }
+
+      .city {
+        font-size: 18px;
+        font-weight: 400;
+        color: #006070;
+      }
+
+      .terminal {
+        font-size: 13px;
+        color: #666;
+        margin-top: 4px;
+      }
+
+      .connector {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 15px;
+      }
+
+      .connector span {
+        font-size: 13px;
+        color: #006070;
+        margin-bottom: 5px;
+      }
+
+      .dotted-line {
+        width: 100%;
+        border-top: 1px dotted #aaa;
+        position: relative;
+      }
+
+      .meta-info {
+        width: 40%;
+        padding-left: 20px;
+        border-left: 1px solid #eee;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .meta-item {
+        font-size: 14px;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .airline-logo {
+        color: #d4af37; /* Màu vàng sen */
+        font-size: 18px;
+      }
+
+      .detail-link {
+        font-size: 13px;
+        color: #006070;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 10px;
+        display: inline-block;
+      }
+
+      /* --- CỘT PHẢI: CÁC HẠNG VÉ --- */
+      .price-section {
+        display: flex;
+      }
+
+      .price-column {
+        width: 160px;
+        padding: 15px 10px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      /* Tag icon ở góc phải (mô phỏng) */
+      .price-tag-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 12px;
+      }
+
+      .class-name {
+        font-size: 13px;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .price-label {
+        font-size: 12px;
+        margin-bottom: 2px;
+      }
+
+      .price-amount {
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .currency {
+        font-size: 12px;
+      }
+
+      .arrow-icon {
+        margin-top: 10px;
+        font-size: 12px;
+      }
+
+      /* Màu sắc cụ thể cho từng hạng vé */
+
+      /* 1. Phổ thông */
+      .col-economy {
+        background-color: #005f6e;
+        color: white;
+      }
+      .col-economy .class-name,
+      .col-economy .price-label,
+      .col-economy .currency {
+        opacity: 0.9;
+      }
+      .col-economy .price-tag-icon {
+        color: white;
+        transform: rotate(90deg);
+      }
+
+      /* 2. Phổ thông đặc biệt */
+      .col-premium {
+        background-color: #dceceb;
+        color: #000;
+      }
+      .col-premium .price-amount {
+        color: #000;
+      }
+      .col-premium .price-tag-icon {
+        color: #000;
+        transform: rotate(90deg);
+      }
+
+      /* 3. Thương gia */
+      .col-business {
+        background-color: #eebc40;
+        color: #000;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+      }
+      .col-business .price-tag-icon {
+        color: #000;
+        transform: rotate(90deg);
+      }
+
+      /* Badge '8 ghế còn lại' */
+      .seats-badge {
+        position: absolute;
+        top: -30px; /* Đẩy lên trên */
+        right: 0;
+        background-color: #005f6e;
+        color: white;
+        padding: 4px 8px;
+        font-size: 12px;
+        border-radius: 4px;
+        white-space: nowrap;
+      }
+      /* Tam giác nhỏ dưới badge để trỏ xuống */
+      .seats-badge::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        right: 10px;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #005f6e;
+      }
+
+      /* Icon Font Awesome (Dùng link CDN nếu cần, ở đây dùng text unicode tạm) */
+      .icon {
+        font-style: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flight-card">
+      <div class="flight-info">
+        <div class="route-info">
+          <div class="point">
+            <span class="time">06:05</span>
+            <span class="city">SGN</span>
+            <div class="terminal">Nhà ga 3</div>
+          </div>
+
+          <div class="connector">
+            <span>Bay thẳng</span>
+            <div class="dotted-line"></div>
+          </div>
+
+          <div class="point">
+            <span class="time">07:25</span>
+            <span class="city">DAD</span>
+            <div class="terminal">Nhà ga 1</div>
+          </div>
+        </div>
+
+        <div class="meta-info">
+          <div class="meta-item">
+            <span class="icon">⏱</span> Thời gian bay 1h 20phút
+          </div>
+          <div class="meta-item">
+            <span class="icon airline-logo">🏵</span>
+            <span>VN 106 Khai thác bởi Vietnam Airlines</span>
+          </div>
+          <a href="#" class="detail-link">Chi tiết hành trình ↗</a>
+        </div>
+      </div>
+
+      <div class="price-section">
+        <div class="price-column col-economy">
+          <span class="icon price-tag-icon">🏷</span>
+          <div class="class-name">PHỔ THÔNG</div>
+          <div class="price-label">từ</div>
+          <div class="price-amount">1.129.000</div>
+          <div class="currency">VND</div>
+          <div class="arrow-icon">﹀</div>
+        </div>
+
+        <div class="price-column col-premium">
+          <span class="icon price-tag-icon">🏷</span>
+          <div class="class-name">PHỔ THÔNG ĐẶC BIỆT</div>
+          <div class="price-label">từ</div>
+          <div class="price-amount">2.302.000</div>
+          <div class="currency">VND</div>
+          <div class="arrow-icon">﹀</div>
+        </div>
+
+        <div class="price-column col-business">
+          <div class="seats-badge">8 ghế còn lại</div>
+
+          <span class="icon price-tag-icon">🏷</span>
+          <div class="class-name">THƯƠNG GIA</div>
+          <div class="price-label">từ</div>
+          <div class="price-amount">2.607.000</div>
+          <div class="currency">VND</div>
+          <div class="arrow-icon">﹀</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

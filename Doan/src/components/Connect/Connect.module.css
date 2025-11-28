@@ -1,9 +1,9 @@
 .hero {
   height: 80vh;
   width: 80vw;
-  /* border: 1px solid red; */
+
   margin-left: 10vw;
-  /* border: 1px solid red; */
+
   border-radius: 10px;
   display: flex;
   position: relative;
@@ -14,14 +14,14 @@
   width: 50%;
   height: 100%;
   overflow: hidden;
-  /* border: 1px solid green; */
+
 }
 .image img {
   width: 190%;
   position: relative;
   top: -100px;
   left: -90%;
-  /* border: 1px solid blue; */
+ 
 }
 .contentZone {
   width: 50%;

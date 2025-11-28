@@ -1,6 +1,7 @@
+import { PageTransition } from "../Animation/PageTransition";
 import { ChangePassword } from "../components/ChangePass/ChangePass";
 
 function ChangePass() {
-  return <ChangePassword />;
+  return(<PageTransition> <ChangePassword /></PageTransition>);
 }
 export default ChangePass;

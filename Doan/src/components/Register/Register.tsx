@@ -6,7 +6,6 @@ export const RegisterLogin = () => {
   };
   return (
     <>
-      {/* Sử dụng lại container cũ để giữ nguyên kích thước và style */}
       <section className={styles.registerZone}>
         <div className={styles["login-container"]}>
           <div className={styles["logo-area"]}>
@@ -62,7 +61,6 @@ export const RegisterLogin = () => {
               />
             </div>
 
-            {/* Thêm trường Xác nhận mật khẩu */}
             <div className={styles["form-group"]}>
               <label
                 htmlFor="confirm_password"
@@ -80,7 +78,6 @@ export const RegisterLogin = () => {
               />
             </div>
 
-            {/* Điều chỉnh khoảng cách một chút nếu cần, hoặc dùng class margin có sẵn */}
             <div style={{ marginTop: "1.5rem" }}>
               <button
                 type="submit"
@@ -127,10 +124,7 @@ export const RegisterLogin = () => {
           {/* Nút chuyển về trang Login */}
           <button
             type="button"
-            className={
-              `${styles.btn} ${styles["btn-outline"]}`
-              // onclick={toLogin()}
-            }
+            className={`${styles.btn} ${styles["btn-outline"]}`}
             onClick={toLogin}
           >
             Đã có tài khoản? Đăng nhập

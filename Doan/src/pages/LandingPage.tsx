@@ -1,3 +1,4 @@
+import { PageTransition } from "../Animation/PageTransition";
 import { Assitance } from "../components/Assistance/Assistance";
 import { Connect } from "../components/Connect/Connect";
 import { Experience } from "../components/Experience/Experience";
@@ -9,7 +10,7 @@ import { Trust } from "../components/Trust/Trust";
 
 function LandingPage() {
   return (
-    <>
+    <PageTransition>
       <Header />
       <Hero />
       <Assitance />
@@ -17,7 +18,7 @@ function LandingPage() {
       <Connect />
       <Trust />
       <Footer />
-    </>
+    </PageTransition>
   );
 }
 

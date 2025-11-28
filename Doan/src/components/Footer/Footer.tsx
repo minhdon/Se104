@@ -29,7 +29,7 @@ export const Footer = () => {
           <h3 className={styles.footerHeading}>DỊCH VỤ KHÁCH HÀNG</h3>
           <ul className={styles.footerLinks}>
             <li>
-              <a href="#">Vé & Đặt chỗ</a>
+              <a href="/find">Vé & Đặt chỗ</a>
             </li>
             <li>
               <a href="#">Thông tin hành trình</a>

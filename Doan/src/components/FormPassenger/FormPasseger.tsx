@@ -78,7 +78,7 @@ export const PassengerForm = () => {
     e.preventDefault();
 
     if (validationForm()) {
-      alert("Đăng ký thành công! Dữ liệu đã được gủi đi");
+      alert("Đăng ký thành công! Dữ liệu đã được gửi đi");
       window.location.href = "/";
     } else {
       alert("Vui lòng kiểm tra lại các thông tin báo đỏ.");

@@ -19,6 +19,7 @@ export const FlightList = () => {
     fromCode: string;
     toCode: string;
     date: string;
+    intermediate?: string[];
   }
 
   const flights: FlightDetail[] = [
@@ -352,21 +353,127 @@ export const FlightList = () => {
       toCode: "LHR",
       date: "2024-11-30",
     },
+    {
+      id: 21,
+      timeFrom: "07:00",
+      timeArrive: "12:30",
+      locationFrom: "Hà Nội (HAN)",
+      locationArrive: "Côn Đảo (VCS)",
+      typeOfFlight: "1 điểm dừng",
+      flightTime: "5h 30m",
+      desc: "Vietnam Airlines - VN209/VN8059 - Airbus A321/ATR72",
+      cost: 4200000,
+      numberOfFirstClass: 0,
+      numberOfSecondClass: 60,
+      fromCode: "HAN",
+      toCode: "VCS",
+      date: "2024-11-30",
+      intermediate: ["Hồ Chí Minh (SGN)"], // Sân bay trung gian
+    },
+
+    // 22. SGN -> JFK (Sài Gòn đi New York - Quá cảnh Đài Bắc)
+    {
+      id: 22,
+      timeFrom: "01:50",
+      timeArrive: "20:00", // Giờ điểm đến (cùng ngày hoặc +1 tùy múi giờ)
+      locationFrom: "Hồ Chí Minh (SGN)",
+      locationArrive: "New York (JFK)",
+      typeOfFlight: "1 điểm dừng",
+      flightTime: "22h 10m",
+      desc: "Eva Air - BR382/BR32 - Boeing 777-300ER",
+      cost: 32500000,
+      numberOfFirstClass: 10,
+      numberOfSecondClass: 280,
+      fromCode: "SGN",
+      toCode: "JFK",
+      date: "2024-11-30",
+      intermediate: ["Đài Bắc (TPE)"],
+    },
+
+    // 23. HAN -> CDG (Hà Nội đi Paris - Quá cảnh Doha)
+    {
+      id: 23,
+      timeFrom: "19:30",
+      timeArrive: "06:55 (+1)",
+      locationFrom: "Hà Nội (HAN)",
+      locationArrive: "Paris (CDG)",
+      typeOfFlight: "1 điểm dừng",
+      flightTime: "17h 25m",
+      desc: "Qatar Airways - QR977/QR039 - Boeing 787/A350",
+      cost: 21000000,
+      numberOfFirstClass: 20,
+      numberOfSecondClass: 230,
+      fromCode: "HAN",
+      toCode: "CDG",
+      date: "2024-11-30",
+      intermediate: ["Doha (DOH)"],
+    },
+
+    // 24. DAD -> FRA (Đà Nẵng đi Frankfurt - 2 điểm dừng: SGN và BKK)
+    // Ví dụ về chuyến bay phức tạp giá rẻ hoặc ghép chặng
+    {
+      id: 24,
+      timeFrom: "08:00",
+      timeArrive: "06:00 (+1)",
+      locationFrom: "Đà Nẵng (DAD)",
+      locationArrive: "Frankfurt (FRA)",
+      typeOfFlight: "2 điểm dừng",
+      flightTime: "28h 00m",
+      desc: "Liên minh Star Alliance - Nhiều hãng",
+      cost: 18000000,
+      numberOfFirstClass: 5,
+      numberOfSecondClass: 150,
+      fromCode: "DAD",
+      toCode: "FRA",
+      date: "2024-11-30",
+      intermediate: ["Hồ Chí Minh (SGN)", "Bangkok (BKK)"],
+    },
+
+    // 25. HPH -> PQC (Hải Phòng đi Phú Quốc - Nối chuyến tại HCM)
+    {
+      id: 25,
+      timeFrom: "09:00",
+      timeArrive: "14:15",
+      locationFrom: "Hải Phòng (HPH)",
+      locationArrive: "Phú Quốc (PQC)",
+      typeOfFlight: "1 điểm dừng",
+      flightTime: "5h 15m",
+      desc: "VietJet Air - VJ283/VJ327 - Airbus A321",
+      cost: 1800000,
+      numberOfFirstClass: 0,
+      numberOfSecondClass: 180,
+      fromCode: "HPH",
+      toCode: "PQC",
+      date: "2024-11-30",
+      intermediate: ["Hồ Chí Minh (SGN)"],
+    },
   ];
   const [searchParams] = useSearchParams();
   const fromCode = searchParams.get("from");
   const toCode = searchParams.get("to");
   const date = searchParams.get("date");
   const navigate = useNavigate();
-  const handleToFindFlight = (flightID: number, ticketType: string) => {
+  const handleToFindFlight = (
+    flightID: number,
+    ticketType: string,
+    fromCode: string,
+    toCode: string,
+    fromLocation: string,
+    toLocation: string,
+    date: string
+  ) => {
     const currentFrom = fromCode || "";
     const currentTo = toCode || "";
+    const currentFromLocation = fromLocation || "";
+    const currentToLocation = toLocation || "";
     const currentDate = date || "";
     navigate({
       pathname: "/passengerForm",
       search: createSearchParams({
         from: currentFrom,
         to: currentTo,
+        fromLocated: currentFromLocation,
+        toLocated: currentToLocation,
         date: currentDate,
         id: flightID.toString(),
         type: ticketType,
@@ -429,7 +536,17 @@ export const FlightList = () => {
 
               <div
                 className={styles.priceSection}
-                onClick={() => handleToFindFlight(flight.id, "1")}
+                onClick={() =>
+                  handleToFindFlight(
+                    flight.id,
+                    "1",
+                    flight.fromCode,
+                    flight.toCode,
+                    flight.locationFrom,
+                    flight.locationArrive,
+                    flight.date
+                  )
+                }
               >
                 <div className={`${styles.priceColumn} ${styles.colEconomy}`}>
                   <div className={styles.seatsBadge}>
@@ -448,7 +565,17 @@ export const FlightList = () => {
 
                 <div
                   className={`${styles.priceColumn} ${styles.colBusiness}`}
-                  onClick={() => handleToFindFlight(flight.id, "2")}
+                  onClick={() =>
+                    handleToFindFlight(
+                      flight.id,
+                      "2",
+                      flight.fromCode,
+                      flight.toCode,
+                      flight.locationFrom,
+                      flight.locationArrive,
+                      flight.date
+                    )
+                  }
                 >
                   <div className={styles.seatsBadge}>
                     {flight.numberOfSecondClass} ghế còn lại
@@ -505,13 +632,26 @@ export const FlightList = () => {
                   <span>{flight.desc}</span>
                 </div>
                 <a href="#" className={styles.detailLink}>
-                  Chi tiết hành trình ↗
+                  {flight.intermediate}
                 </a>
               </div>
             </div>
 
             <div className={styles.priceSection}>
-              <div className={`${styles.priceColumn} ${styles.colEconomy}`}>
+              <div
+                className={`${styles.priceColumn} ${styles.colEconomy}`}
+                onClick={() =>
+                  handleToFindFlight(
+                    flight.id,
+                    "1",
+                    flight.fromCode,
+                    flight.toCode,
+                    flight.locationFrom,
+                    flight.locationArrive,
+                    flight.date
+                  )
+                }
+              >
                 <div className={styles.seatsBadge}>
                   {" "}
                   {flight.numberOfFirstClass} ghế còn lại
@@ -520,22 +660,38 @@ export const FlightList = () => {
                 <div className={styles.className}>Ghế hạng 1</div>
                 <div className={styles.priceLabel}>từ</div>
                 <div className={styles.priceAmount}>
-                  {formatVNDCustom(flight.cost)}
+                  {formatVNDCustom(flight.cost * 1.05)}
                 </div>
                 <div className={styles.currency}>VND</div>
                 <div className={styles.arrowIcon}>﹀</div>
               </div>
 
-              <div className={`${styles.priceColumn} ${styles.colBusiness}`}>
+              <div
+                className={`${styles.priceColumn} ${styles.colBusiness}`}
+                onClick={() =>
+                  handleToFindFlight(
+                    flight.id,
+                    "1",
+                    flight.fromCode,
+                    flight.toCode,
+                    flight.locationFrom,
+                    flight.locationArrive,
+                    flight.date
+                  )
+                }
+              >
                 <div className={styles.seatsBadge}>
                   {flight.numberOfSecondClass} ghế còn lại
+                </div>
+                <div className={styles.seatsBadge}>
+                  {flight.numberOfSecondClass + 1} ghế còn lại
                 </div>
 
                 <span className={styles.priceTagIcon}>🏷</span>
                 <div className={styles.className}>Ghế hạng 2</div>
                 <div className={styles.priceLabel}>từ</div>
                 <div className={styles.priceAmount}>
-                  {formatVNDCustom(flight.cost * 1.5)}
+                  {formatVNDCustom(flight.cost)}
                 </div>
                 <div className={styles.currency}>VND</div>
                 <div className={styles.arrowIcon}>﹀</div>

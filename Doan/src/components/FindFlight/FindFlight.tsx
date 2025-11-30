@@ -115,14 +115,26 @@ const FlightSearch: React.FC = () => {
       return match ? match[1] : val;
     };
 
+    const extractOuterContent = (inputString: string): string => {
+      const regex = /\([^)]+\)/;
+
+      const result = inputString.replace(regex, "");
+
+      return result.trim();
+    };
+
     const fromCode = extractCode(fromValue);
     const toCode = extractCode(toValue);
+    const fromLocation = extractOuterContent(fromValue);
+    const toLocation = extractOuterContent(toValue);
 
     navigate({
       pathname: "/flightList",
       search: createSearchParams({
         from: fromCode,
         to: toCode,
+        fromLocated: fromLocation,
+        toLocated: toLocation,
         date: dateDepart,
       }).toString(),
     });

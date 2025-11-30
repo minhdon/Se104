@@ -1,0 +1,259 @@
+.itineraryWrapper {
+  font-family: "roboto";
+  background-color: #f1f5f9;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  color: #334155;
+  margin: 100px 0 100px 0;
+}
+
+.ticketCard {
+  display: flex;
+  flex-direction: row;
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.leftBox {
+  width: 35%;
+  background-color: #f8fafc;
+  padding: 30px;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.avatarCircle {
+  width: 80px;
+  height: 80px;
+  background-color: #dbeafe;
+  color: #2563eb;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.passengerName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 20px 0;
+}
+
+.labelText {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.bookingCodeBox {
+  background-color: #fff;
+  border: 2px dashed #93c5fd;
+  padding: 15px;
+  border-radius: 12px;
+  width: 100%;
+}
+
+.codeText {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  margin: 0;
+}
+
+.rightBox {
+  width: 65%;
+  padding: 30px;
+}
+
+.flightHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 15px;
+}
+
+.flightTag {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 1px solid #dbeafe;
+}
+
+.routeContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.locationGroup {
+  flex: 1;
+}
+
+.textRight {
+  text-align: right;
+}
+.textLeft {
+  text-align: left;
+}
+
+.timeText {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.codeAirport {
+  color: #2563eb;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 5px 0;
+}
+
+.cityName {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.flightVisual {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 15px;
+}
+
+.flightLineWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  color: #cbd5e1;
+  margin: 5px 0;
+}
+
+.line {
+  height: 2px;
+  background-color: #cbd5e1;
+  width: 100%;
+}
+
+.planeIconCenter {
+  color: #3b82f6;
+  margin: 0 10px;
+}
+
+.stopsContainer {
+  background-color: #f8fafc;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+.stopHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.stopList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stopItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background-color: white;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.stopBadge {
+  background-color: #e0f2fe;
+  color: #0284c7;
+  font-weight: bold;
+  font-size: 0.75rem;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.directFlightBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #16a34a;
+  background-color: #f0fdf4;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #dcfce7;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .ticketCard {
+    flex-direction: column;
+  }
+  .leftBox,
+  .rightBox {
+    width: 100%;
+    border-right: none;
+  }
+  .leftBox {
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .routeContainer {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  .textRight,
+  .textLeft {
+    text-align: center;
+  }
+  .line {
+    display: none;
+  }
+  .planeIconCenter {
+    transform: rotate(90deg);
+    margin: 10px 0;
+  }
+}

@@ -5,6 +5,8 @@ const Navigation = () => {
   const [searchParams] = useSearchParams();
   const fromCode = searchParams.get("from");
   const toCode = searchParams.get("to");
+  const fromLocated = searchParams.get("fromLocated");
+  const toLocated = searchParams.get("toLocated");
   const date = searchParams.get("date");
   return (
     <div className={styles.bookingBar}>
@@ -19,8 +21,8 @@ const Navigation = () => {
             <span className={styles.code}>{toCode}</span>
           </div>
           <div className={styles.routeCities}>
-            {/* <span>TP. Hồ Chí Minh</span>
-            <span>Đà Nẵng</span> */}
+            <span>{fromLocated}</span>
+            <span>{toLocated}</span>
           </div>
         </div>
 
